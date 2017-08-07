@@ -1,0 +1,6 @@
+/* import the required JSAPI css */
+@import 'https://js.arcgis.com/3.21/esri/css/esri.css';
+
+.map {
+    height: calc(100% - 64px);
+}
