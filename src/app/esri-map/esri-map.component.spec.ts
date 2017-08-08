@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { EsriLoaderService } from 'angular-esri-loader';
 
 import { EsriMapComponent } from './esri-map.component';
 
@@ -8,7 +9,8 @@ describe('EsriMapComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EsriMapComponent ]
+      declarations: [ EsriMapComponent ],
+      providers: [ EsriLoaderService ]
     })
     .compileComponents();
   }));

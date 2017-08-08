@@ -10,10 +10,24 @@ export class EsriMapComponent implements OnInit {
   @ViewChild('map') mapEl: ElementRef;
 
   map: any;
+  location: any;
+  zoom: any;
+
 
   constructor(private esriLoader: EsriLoaderService) { }
 
   ngOnInit() {
+    this.location = [0, 0];
+    this.zoom = 2;
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        const { latitude, longitude } = position.coords;
+        this.location = [longitude, latitude];
+        this.zoom = 8;
+      });
+    }
+
     // only load the ArcGIS API for JavaScript when this component is loaded
     return this.esriLoader.load({
       // use a specific version of the API instead of the latest
@@ -23,11 +37,13 @@ export class EsriMapComponent implements OnInit {
       this.esriLoader.loadModules(['esri/map']).then(([Map]) => {
         // create the map at the DOM element in this component
         this.map = new Map(this.mapEl.nativeElement, {
-          center: [-118, 34.5],
-          zoom: 8,
+          center: this.location,
+          zoom: this.zoom,
           basemap: 'dark-gray'
         });
       });
+
+
     });
   }
 
